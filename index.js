@@ -7,8 +7,13 @@ const mongoose = require("mongoose");
 const schemas = require("./graphql/schemas/index");
 const resolvers = require("./graphql/resolvers/index");
 
+// middleware
+const authMiddleware = require("./middleware/authMiddleware");
+
 const app = express();
 app.use(bodyParser.json());
+
+app.use(authMiddleware);
 
 app.use(
   "/graphql",
