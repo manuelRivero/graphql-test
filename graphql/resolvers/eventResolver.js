@@ -25,18 +25,22 @@ const eventResolver = {
         throw error;
       }
     },
-    createEvents: async (args) => {
+    createEvents: async (args, req) => {
       const { title, description, price, date } = args.eventInput;
+      const {isAuth, userId} = req;
+      if(!isAuth){
+        throw new Error ("Unauthorized!")
+      }
       const newEvent = new Event({
         title,
         description,
         price,
         date,
-        creator: "5e95df01ab86041b24b9cbc5",
+        creator: userId,
       });
   
       try {
-        const user = await User.findById("5e95df01ab86041b24b9cbc5");
+        const user = await User.findById(userId);
   
         if (!user) {
           throw new Error("User dont exist!");
