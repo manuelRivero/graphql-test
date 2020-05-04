@@ -23,8 +23,13 @@ const Schema = buildSchema(`
             _id:ID!
             name:String
             email:String!
-            password:String!
+            password:String
             createdEvents:[Event!]
+        }
+        type AuthData {
+            _id: ID!
+            token: String!
+            tokenExpiration: Int!
         }
         input eventInput {
             title:String
@@ -40,6 +45,7 @@ const Schema = buildSchema(`
         type RootQuery {
             events: [Event!]!
             booking: [Booking!]!
+            login(email:String!, password:String!): AuthData
         }
         type RootMutation {
             createEvents(eventInput: eventInput): Event
