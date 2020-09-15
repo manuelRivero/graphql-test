@@ -26,6 +26,7 @@ const eventResolver = {
       }
     },
     createEvents: async (args, req) => {
+      console.log(args.eventInput)
       const { title, description, price, date } = args.eventInput;
       const {isAuth, userId} = req;
       if(!isAuth){
